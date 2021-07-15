@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<title>Home</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		function start(){
+			$(document).ready(function(){
+				var price = $('#price');
+				var previous_value = $('#previous_price');
+				var percentage = $('#percentage');
+				$.get("http://127.0.0.1:8000/show", function(data2){
+					previous_value.html(data2.price);
+				});
+			   	$.get("https://api.cryptonator.com/api/ticker/btc-usd", function(data, status){
+					const value = data.ticker.price;
+					price.html('BitCoin (USD): ' + value + '$');
+					percentage.html('%' + percentage_variation(value,previous_value.text()));
+					const saveUrl = "http://127.0.0.1:8000/save/" + value;
+					$.get(saveUrl);
+		  		});
+		  	});
+			setTimeout('start()',10000);
+		}
+
+		function percentage_variation(new_value, old_value){
+			result = 100 - (new_value * 100 / old_value);
+			return result.toFixed(4);
+		}
+		</script>
+</head>
+<body onload='start()'> 
+	<div class='jumbotron text-center'>
+		<h1 id='price'></h1>
+		<h3 id='percentage'></h3>
+		<p id='previous_price' hidden></p>
+	</div>
+</body>
+</html>

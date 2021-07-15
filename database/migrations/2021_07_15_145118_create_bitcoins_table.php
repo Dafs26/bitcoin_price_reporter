@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBtcRecordsTable extends Migration
+class CreateBitcoinsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateBtcRecordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('_btc_records', function (Blueprint $table) {
+        Schema::create('bitcoins', function (Blueprint $table) {
             $table->id();
-            $table->integer('price');
+            $table->float('price');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateBtcRecordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_btc_records');
+        Schema::dropIfExists('bitcoins');
     }
 }

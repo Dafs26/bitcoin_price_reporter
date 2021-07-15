@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Home_Controller::class , 'index'])->name('index');
+Route::get('/show', [Home_Controller::class , 'show'])->name('show');
+Route::get('/save/{price}',[Home_Controller::class, 'save'])->name('home.save');
